@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package TechShop.JoseCarranza;
 
-/**
- *
- * @author 50686
- */
 import java.util.Locale;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -27,18 +19,22 @@ public class ProjectConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+     
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/ejemplo2").setViewName("ejemplo2");
         registry.addViewController("/multimedia").setViewName("multimedia");
         registry.addViewController("/iframes").setViewName("iframes");
         registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
+        registry.addViewController("/registro/nuevo").setViewName("registro/nuevo");
+
+        registry.addViewController("/pruebas/listado").setViewName("pruebas/listado");
+        registry.addViewController("/pruebas/listado2").setViewName("pruebas/listado2");
     }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver_0() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setPrefix("classpath:/templates");
+        resolver.setPrefix("classpath:/templates/"); // ✅ con barra final
         resolver.setSuffix(".html");
         resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setOrder(0);
@@ -70,9 +66,8 @@ public class ProjectConfig implements WebMvcConfigurer {
     @Bean("messageSource")
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("messages");
+        messageSource.setBasename("messages"); // ✅ busca messages.properties
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 }
-
